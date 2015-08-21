@@ -12,10 +12,10 @@ partno=1
 # exit 1
 #fi
 
-if [[ ${device} == /dev/sda ]]; then
- echo "Trying to use root disk. Exiting"
- continue
-fi
+#if [[ ${device} == /dev/sda ]]; then
+# echo "Trying to use root disk. Exiting"
+# continue
+#fi
 
 if [[ ! -e ${device}${partno} ]]; then
  echo "Error: Partition ${device}$partno does not exist"

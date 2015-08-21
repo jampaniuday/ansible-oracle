@@ -1,0 +1,9 @@
+[racattack-application]
+[racattack-leaf]
+[racattack-hub]
+node1 ansible_ssh_user=root ansible_ssh_pass=root
+node2 ansible_ssh_user=root ansible_ssh_pass=root
+[racattack:children]
+racattack-hub
+[racattack-all:children]
+racattack-hub

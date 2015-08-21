@@ -140,6 +140,8 @@
   - debug: var=rootmaster.stdout_lines
     when: master_node and checkgiinstall.stdout != "1"
 
+  - debug: var=(not master_node and checkgiinstall.stdout != "1" and inventory_hostname == item.1)
+
   - name: Run root script after installation (Other Nodes)
     shell: "sleep {{ item.0 * 60 }}; {{ oracle_home_gi }}/root.sh"
     sudo: yes

@@ -1,4 +1,3 @@
-# Used as of 2014-12-07
 ---
   hostgroup: racattack
   role_separation: true
@@ -20,15 +19,26 @@
   grid_users:           # Passwd :grid
     - { username: grid, uid: 54320, primgroup: oinstall, othergroups: "asmadmin,asmdba,asmoper,dba", passwd: "$6$/yJx24id$K8gB.l5GEMJlv9Q.v1bulyHiRRqZlZaUwoInNEixd9FBRxj9wyZYyyWzgOkRg9gBMfheH/kgRjranYpnAINRI1" }
 
-  oracle_sw_copy: false 
-  oracle_sw_unpack: true
-  oracle_stage: /media/sf_12cR1
-  oracle_stage_remote: /media/sf_12cR1
-  oracle_rsp_stage: /media/sf_12cR1/rsp
+  oracle_user: oracle
+  oracle_group: oinstall
+  grid_user: grid
+  oracle_sw_copy: False 
+  oracle_sw_unpack: False
+  #oracle_stage: /u01/stage
+  #oracle_stage_remote: /media/sf_12cR1
+  oracle_rsp_stage: /u01/stage/rsp
+  master_node: false
+
+  install_from_nfs: true
+  nfs_server_sw: 192.168.1.20
+  nfs_server_sw_path: /disk2/Oracle11204/
+  oracle_stage_remote: /mnt/orasw
+  oracle_stage: /mnt/orasw
+  
 
   configure_interconnect: false
   configure_ssh: true
-  configure_host_disks: false
+  configure_host_disks: false 
                                           
   configure_cluster: true
   install_os_packages: false
@@ -55,6 +65,9 @@
 #       - { filename: linuxamd64_12c_database_2of2.zip, version: 12.1.0.1 }
 #       - { filename: p13390677_112040_Linux-x86-64_1of7.zip, version: 11.2.0.4 }      
 #       - { filename: p13390677_112040_Linux-x86-64_2of7.zip, version: 11.2.0.4 } 
+#       - { filename: p10404530_112030_Linux-x86-64_1of7.zip, version: 11.2.0.3 }
+#       - { filename: p10404530_112030_Linux-x86-64_2of7.zip, version: 11.2.0.3 }
+
 
   oracle_databases:                                               # Dictionary describing the databases to be installed
         - home: rachome1                                                   # 'Last' directory in ORACLE_HOME path (e.g /u01/app/oracle/12.1.0.2/racdb)
@@ -73,14 +86,14 @@
           oracle_db_mem_percent: 25                            # Amount of RAM to be used for SGA
           oracle_database_type: MULTIPURPOSE                   # MULTIPURPOSE|DATA_WAREHOUSING|OLTP
           redolog_size_in_mb: 100
-          delete_db: false
+          state: present
 
 
   oracle_dbf_dir_asm: "DATA"
   oracle_reco_dir_asm: "FRA"                                                                                                                                                                                                               
   host_fs_layout:
       u01:
-        {mntp: /u01, device: /dev/sdb, vgname: vgora, pvname: /dev/sdb1, lvname: lvora, fstype: ext4}
+        {mntp: /u01, device: /dev/vdb, vgname: vgora, pvname: /dev/vdb1, lvname: lvora, fstype: ext4}
 
   asm_diskgroups:  
      - data
@@ -88,8 +101,8 @@
 
   asm_storage_layout:   
    data:
-     - {device: /dev/sdc, asmlabel: asmdisk01}
-     - {device: /dev/sdd, asmlabel: asmdisk02}
-     - {device: /dev/sde, asmlabel: asmdisk03}
+     - {device: /dev/sda, asmlabel: asmdisk01}
+     - {device: /dev/sdb, asmlabel: asmdisk02}
+     - {device: /dev/sdc, asmlabel: asmdisk03}
    fra:
-     - {device: /dev/sdf, asmlabel: asmdisk04}
+     - {device: /dev/sdd, asmlabel: asmdisk04}
